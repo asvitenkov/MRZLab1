@@ -9,29 +9,20 @@ CSummator::CSummator(QObject *parent) :
 
 bool CSummator::run()
 {
-    bool bRes = true;
 
-    if(mInputNumner.size() == 2)
+    if( mInputNumbers.size() != 2 )
     {
-        if(mInputNumner.contains(IN_FIRST) && mInputNumner.contains(IN_SECOND))
-        {
-            CBinNumber *pFirst, *pSecond;
-            pFirst = mInputNumner.value(IN_FIRST);
-            pSecond = mInputNumner.value(IN_SECOND);
-
-
-
-
-        }
-        else
-        {
-            bRes = false;
-        }
-    }
-    else
-    {
-        bRes = false;
+        CDevice::run();
+        return false;
     }
 
-    return  CDevice::run() && bRes;
+    if( !mInputNumbers.contains(IN_FIRST) || !mInputNumbers.contains(IN_SECOND) )
+    {
+        CDevice::run();
+        return false;
+    }
+
+    emit output( new CBinNumber( mInputNumbers.value(IN_FIRST)->value() + mInputNumbers.value(IN_SECOND)->value() ) );
+
+    return  CDevice::run();
 }

@@ -16,12 +16,16 @@ SOURCES += main.cpp\
         mainwindow.cpp \
     binnumber.cpp \
     device.cpp \
-    summator.cpp
+    summator.cpp \
+    repeater.cpp \
+    shiftdevice.cpp
 
 HEADERS  += mainwindow.h \
     defines.h \
     binnumber.h \
     device.h \
-    summator.h
+    summator.h \
+    repeater.h \
+    shiftdevice.h
 
 FORMS    += mainwindow.ui

@@ -15,7 +15,7 @@ public:
     virtual ~CDevice();
 
 protected:
-    QMap<INPUT_NUMBER, CBinNumber*> mInputNumner;
+    QMap<INPUT_NUMBER, CBinNumber*> mInputNumbers;
 
 
 protected:
