@@ -14,8 +14,8 @@ public:
     explicit CDevice(QObject *parent = 0);
     virtual ~CDevice();
 
-private:
-    QMap<INPUT_NUMBER, CBinNumber> mInputNumner;
+protected:
+    QMap<INPUT_NUMBER, CBinNumber*> mInputNumner;
 
 
 protected:
@@ -23,10 +23,10 @@ protected:
 
     
 signals:
-    void output();
+    void output(CBinNumber *);
 
 public slots:
-    void input(INPUT_NUMBER inputNumber,CBinNumber number);
+    void input(INPUT_NUMBER inputNumber,CBinNumber *number);
 };
 
 #endif // CDEVICE_H

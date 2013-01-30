@@ -47,3 +47,11 @@ void CBinNumber::operator=(const CBinNumber& copy)
 {
     mNumber = copy.mNumber;
 }
+
+
+
+CBinNumber CBinNumber::operator+(const CBinNumber& number) const
+{
+    CBinNumber rNumber(this->mNumber+number.mNumber);
+    return rNumber;
+}

@@ -13,9 +13,9 @@ int main(int argc, char *argv[])
     MainWindow w;
     w.show();
     
-    CBinNumber number(16);
-    number.shift(SD_LEFT,2);
-    qDebug() << number.value();
+    CBinNumber n1(16);
+    CBinNumber n2(3);
+    qDebug() << (n1+n2).value();
 
 
     return a.exec();

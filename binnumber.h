@@ -18,6 +18,7 @@ public:
     void shift(SHIFT_DIRECTION direction, int value);
     inline int value(){ return mNumber; }
     void operator=(const CBinNumber& copy);
+    CBinNumber operator+(const CBinNumber& nimber) const;
 signals:
     
 public slots:
