@@ -18,7 +18,11 @@ SOURCES += main.cpp\
     device.cpp \
     summator.cpp \
     repeater.cpp \
-    shiftdevice.cpp
+    shiftdevice.cpp \
+    shiftsummdevice.cpp \
+    conveyor.cpp \
+    inputdescriptor.cpp \
+    multiplicationdescriptor.cpp
 
 HEADERS  += mainwindow.h \
     defines.h \
@@ -26,6 +30,10 @@ HEADERS  += mainwindow.h \
     device.h \
     summator.h \
     repeater.h \
-    shiftdevice.h
+    shiftdevice.h \
+    shiftsummdevice.h \
+    conveyor.h \
+    inputdescriptor.h \
+    multiplicationdescriptor.h
 
 FORMS    += mainwindow.ui

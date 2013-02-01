@@ -1,8 +1,9 @@
 #include "repeater.h"
 
-CRepeater::CRepeater(QObject *parent) :
-    CDevice(parent)
+CRepeater::CRepeater(int position, QObject *parent) :
+    CDevice(parent), mPosition(position)
 {
+
 }
 
 
@@ -26,7 +27,8 @@ bool CRepeater::run()
         return false;
     }
 
-    emit output(new CBinNumber(mInputNumbers.value(IN_FIRST)->value()));
+    emit repeatOutput(new CBinNumber(*mInputNumbers.value(IN_FIRST)));
+    emit output(new CBinNumber(*mInputNumbers.value(IN_FIRST)));
 
 
     return CDevice::run();

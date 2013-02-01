@@ -23,7 +23,7 @@ protected:
 
     
 signals:
-    void output(CBinNumber *);
+    void output(CBinNumber*);
 
 public slots:
     void input(INPUT_NUMBER inputNumber,CBinNumber *number);

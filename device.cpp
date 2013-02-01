@@ -22,6 +22,9 @@ void CDevice::input(INPUT_NUMBER inputNumber, CBinNumber *number)
 
 bool CDevice::run()
 {
+
+    qDeleteAll(mInputNumbers.begin(), mInputNumbers.end());
     mInputNumbers.clear();
+
     return true;
 }
