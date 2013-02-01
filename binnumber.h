@@ -5,26 +5,31 @@
 
 
 #include <QObject>
+#include <QList>
 
 #include "defines.h"
 
 class CBinNumber
 {
 public:
-    explicit CBinNumber();
-    explicit CBinNumber(int number);
+    explicit CBinNumber(int capacity);
+    explicit CBinNumber(int number,int capacity);
     CBinNumber(const CBinNumber& copy);
     void shift(SHIFT_DIRECTION direction);
     void shift(SHIFT_DIRECTION direction, int value);
-    inline int value(){ return mNumber; }
+    int value();
+    inline QString stringValue(){ return mNumber; }
+    inline int capacity(){ return mCapacity; }
     void operator=(const CBinNumber& copy);
     CBinNumber operator+(const CBinNumber& nimber) const;
+
 signals:
     
 public slots:
     
 private:
-    int mNumber;
+    QString mNumber;
+    int mCapacity;
 };
 
 #endif // CBINNUMBER_H

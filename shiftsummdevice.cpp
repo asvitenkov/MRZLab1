@@ -1,7 +1,7 @@
 #include "shiftsummdevice.h"
 
 CShiftSummDevice::CShiftSummDevice(SHIFT_DIRECTION direction, int shiftValue, QObject *parent) :
-    CDevice(parent), mShiftDirection(direction), mShiftValue(shiftValue)
+      CDevice(parent), mShiftDirection(direction), mShiftValue(shiftValue)
 {
 
 }

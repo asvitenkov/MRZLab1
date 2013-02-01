@@ -1,46 +1,57 @@
 #include "binnumber.h"
 
-CBinNumber::CBinNumber()
-    :mNumber(0)
+CBinNumber::CBinNumber(int capacity)
+    :mCapacity(capacity)
 {
-
+    for(int i=0;i<capacity; i++)
+        mNumber+='0';
 }
 
-CBinNumber::CBinNumber(int number)
-    :mNumber(number)
+CBinNumber::CBinNumber(int number, int capacity)
+    :mNumber(QString::number(number,2)), mCapacity(capacity)
 {
+    if(mNumber.size()>capacity)
+    {
+        mNumber.clear();
+        for(int i=0; i<capacity; i++)
+            mNumber+='0';
+    }
 
+    for(int i=0; i<capacity - mNumber.size(); i++)
+        mNumber.push_front('0');
 }
 
 CBinNumber::CBinNumber(const CBinNumber &copy)
 {
     mNumber = copy.mNumber;
+    mCapacity = copy.mCapacity;
 }
 
 void CBinNumber::shift(SHIFT_DIRECTION direction)
 {
+
+    QChar ch;
+
     switch (direction)
     {
     case SD_LEFT:
-        mNumber = mNumber << 1;
+        ch = mNumber.at(0);
+        mNumber = mNumber.remove(0,1);
+        mNumber+=ch;
         break;
     case SD_RIGHT:
-        mNumber = mNumber >> 1;
+        ch = mNumber.at(mNumber.size()-1);
+        mNumber = mNumber.remove(mNumber.size()-1);
+        mNumber.push_front(ch);
         break;
     }
 }
 
 void CBinNumber::shift(SHIFT_DIRECTION direction, int value)
 {
-    switch (direction)
-    {
-    case SD_LEFT:
-        mNumber = mNumber << value;
-        break;
-    case SD_RIGHT:
-        mNumber = mNumber >> value;
-        break;
-    }
+    for(int i=0; i<value; i++)
+            shift(direction);
+
 }
 
 void CBinNumber::operator=(const CBinNumber& copy)
@@ -52,6 +63,14 @@ void CBinNumber::operator=(const CBinNumber& copy)
 
 CBinNumber CBinNumber::operator+(const CBinNumber& number) const
 {
-    CBinNumber rNumber(this->mNumber+number.mNumber);
+    CBinNumber rNumber(this->mNumber.toInt()+number.mNumber.toInt());
     return rNumber;
+}
+
+
+int CBinNumber::value()
+{
+    bool ok;
+    int res = mNumber.toInt(&ok,2);
+    return res;
 }

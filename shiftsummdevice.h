@@ -16,8 +16,9 @@ public:
 
 
 private:
-    int mShiftValue;
     SHIFT_DIRECTION mShiftDirection;
+    int mShiftValue;
+
 
 
 signals:
