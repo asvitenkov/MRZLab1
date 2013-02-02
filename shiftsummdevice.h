@@ -10,7 +10,7 @@ class CShiftSummDevice : public CDevice
 {
     Q_OBJECT
 public:
-    explicit CShiftSummDevice(SHIFT_DIRECTION direction,int shiftValue, QObject *parent = 0);
+    explicit CShiftSummDevice(SHIFT_DIRECTION direction,int shiftValue, int devicePos,QObject *parent = 0);
     virtual ~CShiftSummDevice();
     bool run();
 
@@ -18,8 +18,7 @@ public:
 private:
     SHIFT_DIRECTION mShiftDirection;
     int mShiftValue;
-
-
+    int mDevicePosition;
 
 signals:
     

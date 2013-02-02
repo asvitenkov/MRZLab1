@@ -1,7 +1,7 @@
 #include "shiftsummdevice.h"
 
-CShiftSummDevice::CShiftSummDevice(SHIFT_DIRECTION direction, int shiftValue, QObject *parent) :
-      CDevice(parent), mShiftDirection(direction), mShiftValue(shiftValue)
+CShiftSummDevice::CShiftSummDevice(SHIFT_DIRECTION direction, int shiftValue, int devicePos, QObject *parent):
+    CDevice(parent), mShiftDirection(direction), mShiftValue(shiftValue), mDevicePosition(devicePos)
 {
 
 }
@@ -14,21 +14,28 @@ CShiftSummDevice::~CShiftSummDevice()
 
 bool CShiftSummDevice::run()
 {
-    if(mInputNumbers.size()!=2)
+    if(mInputSignals.size()!=3)
         return false;
 
-    if(!mInputNumbers.contains(IN_FIRST) || !mInputNumbers.contains(IN_SECOND))
+    if(!mInputSignals.contains(IS_FIRST_NUMBER) || !mInputSignals.contains(IS_SECOND_NUMBER) || !mInputSignals.contains(IS_PREVIOUS_SUMM))
         return false;
 
-    CBinNumber *pFirstNumber, *pSecondNumber;
+    CBinNumber *pFirstNumber, *pSecondNumber, *pPreviousSumm;
 
-    pFirstNumber = mInputNumbers.value(IN_FIRST);
-    pSecondNumber = mInputNumbers.value(IN_SECOND);
+    pFirstNumber = mInputSignals.value(IS_FIRST_NUMBER);
+    pSecondNumber = mInputSignals.value(IS_SECOND_NUMBER);
+    pPreviousSumm = mInputSignals.value(IS_PREVIOUS_SUMM);
 
+    pPreviousSumm->shift(mShiftDirection,mShiftValue);
 
-    pFirstNumber->shift(mShiftDirection,mShiftValue);
+    int sum = 0;
 
-    emit output(new CBinNumber(pFirstNumber->value()+pSecondNumber->value()));
+    if( (1<<(DEVICE_COUNT-mDevicePosition)) & pSecondNumber->value() )
+        sum = pFirstNumber->value();
+
+    emit output(IS_PREVIOUS_SUMM, new CBinNumber(sum + pPreviousSumm->value(),NUMBER_CAPACITY*2));
+    emit output(IS_FIRST_NUMBER, new CBinNumber(*pFirstNumber));
+    emit output(IS_SECOND_NUMBER, new CBinNumber(*pSecondNumber));
 
     return CDevice::run();
 }

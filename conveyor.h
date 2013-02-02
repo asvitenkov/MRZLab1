@@ -5,22 +5,24 @@
 #include <QVector>
 #include <QList>
 
+#include "device.h"
+#include "defines.h"
 
-#include "abstractconveyor.h"
-
-class CConveyor : public CAbstractConveyor
+class CConveyor : public QObject
 {
     Q_OBJECT
 public:
-    explicit CConveyor(QVector<CDevice*>& devices,CIODescriptor *descriptor,QObject *parent = 0);
+    explicit CConveyor(QVector<CDevice*>& devices,QObject *parent = 0);
     void nextStep(int firstNumber, int secondNumber);
+    bool isFree();
+
 private:
-
+    QVector<CDevice*> mDevices;
 signals:
-
+    void output(CBinNumber*);
 
 public slots:
-    
+    void outputConveyor(CBinNumber* number);
 };
 
 #endif // CONVEYOR_H

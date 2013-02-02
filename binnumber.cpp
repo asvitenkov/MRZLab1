@@ -1,11 +1,11 @@
 #include "binnumber.h"
 
-CBinNumber::CBinNumber(int capacity)
-    :mCapacity(capacity)
-{
-    for(int i=0;i<capacity; i++)
-        mNumber+='0';
-}
+//CBinNumber::CBinNumber(int capacity)
+//    :mCapacity(capacity)
+//{
+//    for(int i=0;i<capacity; i++)
+//        mNumber+='0';
+//}
 
 CBinNumber::CBinNumber(int number, int capacity)
     :mNumber(QString::number(number,2)), mCapacity(capacity)
@@ -17,7 +17,8 @@ CBinNumber::CBinNumber(int number, int capacity)
             mNumber+='0';
     }
 
-    for(int i=0; i<capacity - mNumber.size(); i++)
+    int size = capacity - mNumber.size();
+    for(int i=0; i< size; i++)
         mNumber.push_front('0');
 }
 

@@ -13,18 +13,16 @@ CDevice::~CDevice()
 }
 
 
-void CDevice::input(INPUT_NUMBER inputNumber, CBinNumber *number)
+void CDevice::input(INPUT_SIGNAL inputSignal, CBinNumber *number)
 {
-    Q_ASSERT(!mInputNumbers.contains(inputNumber));
-    mInputNumbers.insert(inputNumber, number);
+    Q_ASSERT(!mInputSignals.contains(inputSignal));
+    mInputSignals.insert(inputSignal, number);
 }
 
 
 bool CDevice::run()
 {
-
-    qDeleteAll(mInputNumbers.begin(), mInputNumbers.end());
-    mInputNumbers.clear();
-
+    qDeleteAll(mInputSignals.begin(), mInputSignals.end());
+    mInputSignals.clear();
     return true;
 }

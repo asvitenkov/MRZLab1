@@ -1,6 +1,8 @@
 #ifndef DEFINES_H
 #define DEFINES_H
 
+#define DEVICE_COUNT 4
+#define NUMBER_CAPACITY 4
 
 enum SHIFT_DIRECTION
 {
@@ -9,10 +11,11 @@ enum SHIFT_DIRECTION
 };
 
 
-enum INPUT_NUMBER
+enum INPUT_SIGNAL
 {
-    IN_FIRST,
-    IN_SECOND
+    IS_FIRST_NUMBER,
+    IS_SECOND_NUMBER,
+    IS_PREVIOUS_SUMM
 };
 
 

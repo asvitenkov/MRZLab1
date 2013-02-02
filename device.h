@@ -12,22 +12,22 @@ class CDevice : public QObject
     Q_OBJECT
 public:
     explicit CDevice(QObject *parent = 0);
-    virtual bool isFree() { return mInputNumbers.isEmpty(); }
+    virtual bool isFree() { return mInputSignals.isEmpty(); }
     virtual ~CDevice();
     virtual bool run();
 
 protected:
-    QMap<INPUT_NUMBER, CBinNumber*> mInputNumbers;
+    QMap<INPUT_SIGNAL, CBinNumber*> mInputSignals;
 
 
 
 
     
 signals:
-    void output(CBinNumber*);
+    void output(INPUT_SIGNAL inputSignal,CBinNumber *number);
 
 public slots:
-    void input(INPUT_NUMBER inputNumber,CBinNumber *number);
+    void input(INPUT_SIGNAL inputSignal,CBinNumber *number);
 };
 
 #endif // CDEVICE_H

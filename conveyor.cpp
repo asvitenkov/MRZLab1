@@ -1,10 +1,9 @@
 #include "conveyor.h"
 #include "device.h"
 #include "defines.h"
-#include "iodescriptor.h"
 
-CConveyor::CConveyor(QVector<CDevice *> &devices, CIODescriptor *descriptor, QObject *parent) :
-    CAbstractConveyor(devices,descriptor,parent)
+CConveyor::CConveyor(QVector<CDevice *> &devices, QObject *parent) :
+    QObject(parent), mDevices(devices)
 {
 
 }
@@ -25,14 +24,12 @@ void CConveyor::nextStep(int firstNumber, int secondNumber)
             Q_ASSERT(pDevice->run());
         }
     }
-
-
-    mIODescriptor->inputSignal(firstNumber,secondNumber);
-
-    mIODescriptor->setOutput(this);
-
-
 }
 
 
+
+void CConveyor::outputConveyor(CBinNumber *number)
+{
+    emit output(number);
+}
 
