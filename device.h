@@ -12,14 +12,15 @@ class CDevice : public QObject
     Q_OBJECT
 public:
     explicit CDevice(QObject *parent = 0);
+    virtual bool isFree() { return mInputNumbers.isEmpty(); }
     virtual ~CDevice();
+    virtual bool run();
 
 protected:
     QMap<INPUT_NUMBER, CBinNumber*> mInputNumbers;
 
 
-protected:
-    virtual bool run();
+
 
     
 signals:

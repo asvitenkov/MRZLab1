@@ -21,8 +21,9 @@ SOURCES += main.cpp\
     shiftdevice.cpp \
     shiftsummdevice.cpp \
     conveyor.cpp \
-    inputdescriptor.cpp \
-    multiplicationdescriptor.cpp
+    multiplicationdescriptor.cpp \
+    abstractconveyor.cpp \
+    iodescriptor.cpp
 
 HEADERS  += mainwindow.h \
     defines.h \
@@ -33,7 +34,8 @@ HEADERS  += mainwindow.h \
     shiftdevice.h \
     shiftsummdevice.h \
     conveyor.h \
-    inputdescriptor.h \
-    multiplicationdescriptor.h
+    multiplicationdescriptor.h \
+    abstractconveyor.h \
+    iodescriptor.h
 
 FORMS    += mainwindow.ui

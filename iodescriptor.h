@@ -2,13 +2,18 @@
 #define CINPUTDESCRIPTOR_H
 
 #include <QObject>
+#include "abstractconveyor.h"
 
-class CInputDescriptor : public QObject
+class CDevice;
+class CAbstractConveyor;
+
+class CIODescriptor : public QObject
 {
     Q_OBJECT
 public:
-    explicit CInputDescriptor(QObject *parent = 0);
+    explicit CIODescriptor(QObject *parent = 0);
     virtual void inputSignal(int firstNumber, int secondNumber) = 0;
+    virtual void setOutput(CAbstractConveyor *conveyor) = 0;
     
 signals:
     
