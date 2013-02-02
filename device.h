@@ -17,17 +17,17 @@ public:
     virtual bool run();
 
 protected:
-    QMap<INPUT_SIGNAL, CBinNumber*> mInputSignals;
+    QMap<InputSignal, CBinNumber*> mInputSignals;
 
 
 
 
     
 signals:
-    void output(INPUT_SIGNAL inputSignal,CBinNumber *number);
+    void output(InputSignal inputSignal,CBinNumber *number);
 
 public slots:
-    void input(INPUT_SIGNAL inputSignal,CBinNumber *number);
+    void input(InputSignal inputSignal,CBinNumber *number);
 };
 
 #endif // CDEVICE_H

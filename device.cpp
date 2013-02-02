@@ -13,7 +13,7 @@ CDevice::~CDevice()
 }
 
 
-void CDevice::input(INPUT_SIGNAL inputSignal, CBinNumber *number)
+void CDevice::input(InputSignal inputSignal, CBinNumber *number)
 {
     Q_ASSERT(!mInputSignals.contains(inputSignal));
     mInputSignals.insert(inputSignal, number);

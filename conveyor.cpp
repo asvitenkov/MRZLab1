@@ -1,35 +1,63 @@
 #include "conveyor.h"
-#include "device.h"
-#include "defines.h"
+#include "conveyorline.h"
+#include "shiftsummdevice.h"
 
-CConveyor::CConveyor(QVector<CDevice *> &devices, QObject *parent) :
-    QObject(parent), mDevices(devices)
+
+CConveyor::CConveyor(ConveyorType type, QObject *parent) :
+    QObject(parent), mConveyorType(type), mConveyorLine(NULL), mTime(0)
 {
-
 }
 
 
-void CConveyor::nextStep(int firstNumber, int secondNumber)
+void CConveyor::addInputPair(int fNumber, int sNumber)
 {
-    if(mDevices.size()<2)
-        return;
-    // Передаём входные данные на вход нужных устройств
-
-    // 1. Наверное нужно запустить с конца все девайсы
-    for(int i=mDevices.size(); i>=0; ++i)
-    {
-        CDevice *pDevice = mDevices.at(i);
-        if(!pDevice->isFree())
-        {
-            Q_ASSERT(pDevice->run());
-        }
-    }
+    mInputQueue.push_back(PairNumber(fNumber,sNumber));
 }
 
 
-
-void CConveyor::outputConveyor(CBinNumber *number)
+bool CConveyor::isDone()
 {
-    emit output(number);
+    return (mInputQueue.isEmpty() && mConveyorLine->isFree());
 }
 
+
+void CConveyor::output(CBinNumber *number)
+{
+    addOutputNumber(number->value());
+    delete number;
+}
+
+void CConveyor::addOutputNumber(int number)
+{
+     mOutputList.push_back(number);
+}
+
+void CConveyor::createConveyorLine()
+{
+    QVector<CDevice*> devices;
+    CDevice *dev1 = new CShiftSummDevice(SD_RIGHT,1,1,this);
+    mFirstDevice = dev1;
+    CDevice *dev2 = new CShiftSummDevice(SD_RIGHT,1,2,this);
+    CDevice *dev3 = new CShiftSummDevice(SD_RIGHT,1,3,this);
+    CDevice *dev4 = new CShiftSummDevice(SD_RIGHT,1,4,this);
+    CDevice *dev5 = new CShiftSummDevice(SD_RIGHT,1,5,this);
+    CDevice *dev6 = new CShiftSummDevice(SD_RIGHT,1,6,this);
+    devices.push_back(dev1);
+    devices.push_back(dev2);
+    devices.push_back(dev3);
+    devices.push_back(dev4);
+    devices.push_back(dev5);
+    devices.push_back(dev6);
+    connect(dev1,SIGNAL(output(InputSignal,CBinNumber*)),dev2,SLOT(input(InputSignal,CBinNumber*)));
+    connect(dev2,SIGNAL(output(InputSignal,CBinNumber*)),dev3,SLOT(input(InputSignal,CBinNumber*)));
+    connect(dev3,SIGNAL(output(InputSignal,CBinNumber*)),dev4,SLOT(input(InputSignal,CBinNumber*)));
+    connect(dev4,SIGNAL(output(InputSignal,CBinNumber*)),dev5,SLOT(input(InputSignal,CBinNumber*)));
+    connect(dev5,SIGNAL(output(InputSignal,CBinNumber*)),dev6,SLOT(input(InputSignal,CBinNumber*)));
+
+
+
+    mConveyorLine = new CConveyorLine(devices,this);
+
+    connect(dev6,SIGNAL(output(InputSignal,CBinNumber*)),mConveyorLine,SLOT(outputConveyor(InputSignal,CBinNumber*)));
+    connect(mConveyorLine,SIGNAL(output(CBinNumber*)),this,SLOT(output(CBinNumber*)));
+}

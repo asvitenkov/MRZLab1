@@ -15,8 +15,8 @@ public:
     //explicit CBinNumber(int capacity);
     explicit CBinNumber(int number,int capacity = NUMBER_CAPACITY);
     CBinNumber(const CBinNumber& copy);
-    void shift(SHIFT_DIRECTION direction);
-    void shift(SHIFT_DIRECTION direction, int value);
+    void shift(ShiftDirection direction);
+    void shift(ShiftDirection direction, int value);
     int value();
     inline QString stringValue(){ return mNumber; }
     inline int capacity(){ return mCapacity; }

@@ -17,6 +17,7 @@ SOURCES += main.cpp\
     binnumber.cpp \
     device.cpp \
     shiftsummdevice.cpp \
+    conveyorline.cpp \
     conveyor.cpp
 
 HEADERS  += mainwindow.h \
@@ -24,6 +25,7 @@ HEADERS  += mainwindow.h \
     binnumber.h \
     device.h \
     shiftsummdevice.h \
+    conveyorline.h \
     conveyor.h
 
 FORMS    += mainwindow.ui

@@ -25,9 +25,9 @@ int main(int argc, char *argv[])
     device1.input(IS_SECOND_NUMBER,n2);
     device1.input(IS_PREVIOUS_SUMM,n3);
 
-    QObject::connect(&device1,SIGNAL(output(INPUT_SIGNAL,CBinNumber*)),&device2,SLOT(input(INPUT_SIGNAL,CBinNumber*)));
-    QObject::connect(&device2,SIGNAL(output(INPUT_SIGNAL,CBinNumber*)),&device3,SLOT(input(INPUT_SIGNAL,CBinNumber*)));
-    QObject::connect(&device3,SIGNAL(output(INPUT_SIGNAL,CBinNumber*)),&device4,SLOT(input(INPUT_SIGNAL,CBinNumber*)));
+    QObject::connect(&device1,SIGNAL(output(InputSignal,CBinNumber*)),&device2,SLOT(input(InputSignal,CBinNumber*)));
+    QObject::connect(&device2,SIGNAL(output(InputSignal,CBinNumber*)),&device3,SLOT(input(InputSignal,CBinNumber*)));
+    QObject::connect(&device3,SIGNAL(output(InputSignal,CBinNumber*)),&device4,SLOT(input(InputSignal,CBinNumber*)));
 
 
     device1.run();

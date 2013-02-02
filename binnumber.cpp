@@ -28,7 +28,7 @@ CBinNumber::CBinNumber(const CBinNumber &copy)
     mCapacity = copy.mCapacity;
 }
 
-void CBinNumber::shift(SHIFT_DIRECTION direction)
+void CBinNumber::shift(ShiftDirection direction)
 {
 
     QChar ch;
@@ -48,7 +48,7 @@ void CBinNumber::shift(SHIFT_DIRECTION direction)
     }
 }
 
-void CBinNumber::shift(SHIFT_DIRECTION direction, int value)
+void CBinNumber::shift(ShiftDirection direction, int value)
 {
     for(int i=0; i<value; i++)
             shift(direction);

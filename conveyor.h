@@ -1,28 +1,35 @@
-#ifndef CONVEYOR_H
-#define CONVEYOR_H
+#ifndef CONVEYORLINE_H
+#define CONVEYORLINE_H
 
 #include <QObject>
-#include <QVector>
-#include <QList>
+#include <QQueue>
+#include "binnumber.h"
 
-#include "device.h"
-#include "defines.h"
+
+class CConveyorLine;
+class CDevice;
 
 class CConveyor : public QObject
 {
     Q_OBJECT
 public:
-    explicit CConveyor(QVector<CDevice*>& devices,QObject *parent = 0);
-    void nextStep(int firstNumber, int secondNumber);
-    bool isFree();
-
+    explicit CConveyor(ConveyorType type = CT_DEFAULT, QObject *parent = 0);
+    void addInputPair(int fNumber, int sNumber);
+    bool isDone();
+    
 private:
-    QVector<CDevice*> mDevices;
+    void addOutputNumber(int number);
+    void createConveyorLine();
+    ConveyorType mConveyorType;
+    CConveyorLine *mConveyorLine;
+    QQueue<PairNumber> mInputQueue;
+    QList<int> mOutputList;
+    CDevice *mFirstDevice;
+    int mTime;
 signals:
-    void output(CBinNumber*);
-
-public slots:
-    void outputConveyor(CBinNumber* number);
+    void done();
+private slots:
+    void output(CBinNumber* number);
 };
 
 #endif // CONVEYOR_H
