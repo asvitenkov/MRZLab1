@@ -1,9 +1,11 @@
 #include "shiftsummdevice.h"
+#include "shiftsummdevicewidget.h"
 
-CShiftSummDevice::CShiftSummDevice(ShiftDirection direction, int shiftValue, int devicePos, QObject *parent):
-    CDevice(parent), mShiftDirection(direction), mShiftValue(shiftValue), mDevicePosition(devicePos)
+
+CShiftSummDevice::CShiftSummDevice(ShiftDirection direction, int shiftValue, int devicePos, CShiftSummDeviceWidget *widget, QObject *parent):
+    CDevice(parent), mShiftDirection(direction), mShiftValue(shiftValue), mDevicePosition(devicePos), mWidget(widget)
 {
-
+    Q_ASSERT(widget);
 }
 
 
@@ -41,4 +43,24 @@ bool CShiftSummDevice::run()
     emit output(IS_NUMBER_INDEX, new CBinNumber(*pNumberIndex));
 
     return CDevice::run();
+}
+
+
+void CShiftSummDevice::updateWidget()
+{
+    if(mInputSignals.contains(IS_PREVIOUS_SUMM))
+        mWidget->setSummNumber(mInputSignals.value(IS_PREVIOUS_SUMM));
+    if(mInputSignals.contains(IS_SECOND_NUMBER) && mInputSignals.contains(IS_FIRST_NUMBER))
+    {
+        CBinNumber *pSecondNumber, *pFirstNumber;
+        pFirstNumber = mInputSignals.value(IS_FIRST_NUMBER);
+        pSecondNumber = mInputSignals.value(IS_SECOND_NUMBER);
+        if( (1<<(DEVICE_COUNT-mDevicePosition)) & pSecondNumber->value() )
+            mWidget->setMultiplicand(pFirstNumber);
+        else
+        {
+            CBinNumber zero(0);
+            mWidget->setMultiplicand(&zero);
+        }
+    }
 }

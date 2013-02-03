@@ -18,7 +18,8 @@ SOURCES += main.cpp\
     device.cpp \
     shiftsummdevice.cpp \
     conveyorline.cpp \
-    conveyor.cpp
+    conveyor.cpp \
+    shiftsummdevicewidget.cpp
 
 HEADERS  += mainwindow.h \
     defines.h \
@@ -26,6 +27,8 @@ HEADERS  += mainwindow.h \
     device.h \
     shiftsummdevice.h \
     conveyorline.h \
-    conveyor.h
+    conveyor.h \
+    shiftsummdevicewidget.h
 
-FORMS    += mainwindow.ui
+FORMS    += mainwindow.ui \
+    shiftsummdevicewidget.ui

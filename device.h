@@ -20,7 +20,8 @@ protected:
     QMap<InputSignal, CBinNumber*> mInputSignals;
 
 
-
+protected:
+    virtual void updateWidget() = 0;
 
     
 signals:

@@ -75,3 +75,17 @@ int CBinNumber::value()
     int res = mNumber.toInt(&ok,2);
     return res;
 }
+
+
+QString CBinNumber::formattedString()
+{
+    QString resStr;
+    int size = mNumber.size();
+    for(int i=0; i<size; ++i)
+    {
+        resStr.push_front(mNumber.at(size-i-1));
+        if((((i+1) % 4) == 0) && (i+1)!=size )
+            resStr.push_front('.');
+    }
+    return resStr;
+}

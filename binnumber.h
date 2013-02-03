@@ -22,6 +22,7 @@ public:
     inline int capacity(){ return mCapacity; }
     void operator=(const CBinNumber& copy);
     CBinNumber operator+(const CBinNumber& nimber) const;
+    QString formattedString();
 
 signals:
     

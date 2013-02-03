@@ -17,6 +17,7 @@ void CDevice::input(InputSignal inputSignal, CBinNumber *number)
 {
     Q_ASSERT(!mInputSignals.contains(inputSignal));
     mInputSignals.insert(inputSignal, number);
+    updateWidget();
 }
 
 

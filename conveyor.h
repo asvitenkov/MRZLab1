@@ -3,6 +3,7 @@
 
 #include <QObject>
 #include <QQueue>
+#include <QLayout>
 #include "binnumber.h"
 
 
@@ -13,9 +14,11 @@ class CConveyor : public QObject
 {
     Q_OBJECT
 public:
-    explicit CConveyor(ConveyorType type = CT_DEFAULT, QObject *parent = 0);
+    explicit CConveyor(QLayout* layout,ConveyorType type = CT_DEFAULT, QObject *parent = 0);
+
     void addInputPair(int fNumber, int sNumber);
     bool isDone();
+    bool nextTime();
     
 private:
     void addOutputNumber(int number);
@@ -25,6 +28,7 @@ private:
     QQueue<PairNumber> mInputQueue;
     QList<int> mOutputList;
     CDevice *mFirstDevice;
+    QLayout *mLayout;
     int mTime;
 signals:
     void done();
