@@ -16,11 +16,13 @@ class CShiftSummDeviceWidget : public QWidget
     
 public:
     explicit CShiftSummDeviceWidget(int capacity = NUMBER_CAPACITY,QWidget *parent = 0);
+    void clear();
     ~CShiftSummDeviceWidget();
     
 public slots:
     void setSummNumber(CBinNumber* number);
     void setMultiplicand(CBinNumber* number);
+    void setNumberIndex(CBinNumber* number);
 
 private:
     int mCapacity;

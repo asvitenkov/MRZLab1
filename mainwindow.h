@@ -7,6 +7,8 @@ namespace Ui {
 class MainWindow;
 }
 
+class CConveyor;
+
 class MainWindow : public QMainWindow
 {
     Q_OBJECT
@@ -17,6 +19,16 @@ public:
     
 private:
     Ui::MainWindow *ui;
+    CConveyor *mConveyor;
+
+
+
+private slots:
+    void addInputPair(int fNumber, int sNumber, int index);
+    void addOutputNumber(int number, int index);
+    void nextTimeSlot();
+    void addRandomPair();
+    void timeChanged(int time);
 };
 
 #endif // MAINWINDOW_H

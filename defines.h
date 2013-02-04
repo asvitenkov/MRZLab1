@@ -29,19 +29,14 @@ enum ConveyorType
 
 struct PairNumber
 {
-    PairNumber()    :
-        mFirstNumber(0), mSecondNumber(0)
-    {
-
-    }
-
-    PairNumber(int fNumber, int sNumber):
-        mFirstNumber(fNumber), mSecondNumber(sNumber)
+    PairNumber(int fNumber, int sNumber, int index):
+        mFirstNumber(fNumber), mSecondNumber(sNumber), mIndex(index)
     {
     }
 
     int mFirstNumber;
     int mSecondNumber;
+    int mIndex;
 };
 
 

@@ -23,6 +23,8 @@ bool CShiftSummDevice::run()
             || !mInputSignals.contains(IS_PREVIOUS_SUMM) || !mInputSignals.contains(IS_NUMBER_INDEX))
         return false;
 
+    mWidget->clear();
+
     CBinNumber *pFirstNumber, *pSecondNumber, *pPreviousSumm, *pNumberIndex;
 
     pFirstNumber = mInputSignals.value(IS_FIRST_NUMBER);
@@ -63,4 +65,10 @@ void CShiftSummDevice::updateWidget()
             mWidget->setMultiplicand(&zero);
         }
     }
+
+    if(mInputSignals.contains(IS_NUMBER_INDEX))
+    {
+        mWidget->setNumberIndex(mInputSignals.value(IS_NUMBER_INDEX));
+    }
+
 }

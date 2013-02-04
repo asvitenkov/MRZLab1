@@ -8,6 +8,12 @@ CShiftSummDeviceWidget::CShiftSummDeviceWidget(int capacity, QWidget *parent) :
     ui(new Ui::CShiftSummDeviceWidget)
 {
     ui->setupUi(this);
+    ui->summEdit->setReadOnly(true);
+    ui->multiplicandEdit->setReadOnly(true);
+    ui->indexEdit->setReadOnly(true);
+    ui->summEdit->setAlignment(Qt::AlignRight);
+    ui->multiplicandEdit->setAlignment(Qt::AlignRight);
+    ui->indexEdit->setAlignment(Qt::AlignRight);
 }
 
 CShiftSummDeviceWidget::~CShiftSummDeviceWidget()
@@ -24,4 +30,18 @@ void CShiftSummDeviceWidget::setMultiplicand(CBinNumber *number)
 void CShiftSummDeviceWidget::setSummNumber(CBinNumber *number)
 {
     ui->summEdit->setText(number->formattedString());
+}
+
+
+void CShiftSummDeviceWidget::setNumberIndex(CBinNumber *number)
+{
+    ui->indexEdit->setText(QString::number(number->value()));
+}
+
+
+void CShiftSummDeviceWidget::clear()
+{
+    ui->indexEdit->clear();
+    ui->summEdit->clear();
+    ui->multiplicandEdit->clear();
 }

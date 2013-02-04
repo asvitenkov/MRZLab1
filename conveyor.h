@@ -23,15 +23,21 @@ public:
 private:
     void addOutputNumber(int number);
     void createConveyorLine();
+    int getNextIndex();
+    int getCurrentPairIndex(){ return mPairIndex; }
     ConveyorType mConveyorType;
     CConveyorLine *mConveyorLine;
     QQueue<PairNumber> mInputQueue;
     QList<int> mOutputList;
     CDevice *mFirstDevice;
-    QLayout *mLayout;
+    QLayout *mDevicesLayout;
     int mTime;
+    int mPairIndex;
 signals:
     void done();
+    void inputPair(int, int, int);
+    void output(int,int);
+    void timeChanged(int);
 private slots:
     void output(CBinNumber* number);
 };

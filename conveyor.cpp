@@ -5,7 +5,12 @@
 
 
 CConveyor::CConveyor(QLayout *layout, ConveyorType type, QObject *parent) :
-    QObject(parent), mConveyorType(type), mConveyorLine(NULL), mTime(0), mLayout(layout)
+    QObject(parent)
+  ,mConveyorType(type)
+  ,mConveyorLine(NULL)
+  ,mTime(0)
+  ,mDevicesLayout(layout)
+  ,mPairIndex(0)
 {
     createConveyorLine();
 }
@@ -13,7 +18,9 @@ CConveyor::CConveyor(QLayout *layout, ConveyorType type, QObject *parent) :
 
 void CConveyor::addInputPair(int fNumber, int sNumber)
 {
-    mInputQueue.push_back(PairNumber(fNumber,sNumber));
+
+    mInputQueue.push_back(PairNumber(fNumber,sNumber,getNextIndex()));
+    emit inputPair(fNumber,sNumber,getCurrentPairIndex());
 }
 
 
@@ -25,13 +32,14 @@ bool CConveyor::isDone()
 
 void CConveyor::output(CBinNumber *number)
 {
-    addOutputNumber(number->value());
+    addOutputNumber(number->value());    
     delete number;
 }
 
 void CConveyor::addOutputNumber(int number)
 {
     mOutputList.push_back(number);
+    emit output(number,mOutputList.size());
 }
 
 void CConveyor::createConveyorLine()
@@ -44,12 +52,12 @@ void CConveyor::createConveyorLine()
     CShiftSummDeviceWidget *wgt5 = new CShiftSummDeviceWidget(NUMBER_CAPACITY);
     CShiftSummDeviceWidget *wgt6 = new CShiftSummDeviceWidget(NUMBER_CAPACITY);
 
-    mLayout->addWidget(wgt1);
-    mLayout->addWidget(wgt2);
-    mLayout->addWidget(wgt3);
-    mLayout->addWidget(wgt4);
-    mLayout->addWidget(wgt5);
-    mLayout->addWidget(wgt6);
+    mDevicesLayout->addWidget(wgt1);
+    mDevicesLayout->addWidget(wgt2);
+    mDevicesLayout->addWidget(wgt3);
+    mDevicesLayout->addWidget(wgt4);
+    mDevicesLayout->addWidget(wgt5);
+    mDevicesLayout->addWidget(wgt6);
 
     wgt1->show();
     wgt2->show();
@@ -92,11 +100,46 @@ bool CConveyor::nextTime()
 {
     if(mInputQueue.isEmpty() && isDone())
         return false;
-    if(!mInputQueue.isEmpty()){
-        PairNumber pair = mInputQueue.takeFirst();
-        mConveyorLine->nextStep(pair.mFirstNumber, pair.mSecondNumber,0);
-    }
-    else
-        mConveyorLine->nextStep();
 
+
+    if(mConveyorType == CT_DEFAULT)
+    {
+        if(!mInputQueue.isEmpty()){
+            PairNumber pair = mInputQueue.takeFirst();
+            mConveyorLine->nextStep(pair.mFirstNumber, pair.mSecondNumber,pair.mIndex);
+        }
+        else
+            mConveyorLine->nextStep();
+
+    }
+    else if(mConveyorType == CT_WAIT_FREE)
+    {
+        if(mConveyorLine->isFree())
+        {
+            if(!mInputQueue.isEmpty()){
+                PairNumber pair = mInputQueue.takeFirst();
+                mConveyorLine->nextStep(pair.mFirstNumber, pair.mSecondNumber,pair.mIndex);
+            }
+            else
+                mConveyorLine->nextStep();
+        }
+        else
+        {
+            mConveyorLine->nextStep();
+        }
+
+    }
+    else{
+        return false;
+    }
+
+
+    ++mTime;
+    emit timeChanged(mTime);
+
+}
+
+int CConveyor::getNextIndex()
+{
+    return ++mPairIndex;
 }
