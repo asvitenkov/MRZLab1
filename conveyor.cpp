@@ -114,20 +114,15 @@ bool CConveyor::nextTime()
     }
     else if(mConveyorType == CT_WAIT_FREE)
     {
+        mConveyorLine->nextStep();
+
         if(mConveyorLine->isFree())
         {
             if(!mInputQueue.isEmpty()){
                 PairNumber pair = mInputQueue.takeFirst();
                 mConveyorLine->nextStep(pair.mFirstNumber, pair.mSecondNumber,pair.mIndex);
             }
-            else
-                mConveyorLine->nextStep();
         }
-        else
-        {
-            mConveyorLine->nextStep();
-        }
-
     }
     else{
         return false;
@@ -137,9 +132,34 @@ bool CConveyor::nextTime()
     ++mTime;
     emit timeChanged(mTime);
 
+    return true;
+
 }
 
 int CConveyor::getNextIndex()
 {
     return ++mPairIndex;
+}
+
+void CConveyor::resetConveyour()
+{
+    mInputQueue.clear();
+    mConveyorLine->reset();
+    resetIndex();
+    resetTime();
+    resetOutputList();
+
+}
+
+void CConveyor::resetTime()
+{
+    mTime = 0;
+}
+
+
+
+void CConveyor::setType(ConveyorType type)
+{
+    mConveyorType = type;
+    resetConveyour();
 }

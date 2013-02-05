@@ -19,11 +19,17 @@ public:
     void addInputPair(int fNumber, int sNumber);
     bool isDone();
     bool nextTime();
+    void resetConveyour();
+    void setType(ConveyorType type);
+    int getTime(){ return mTime; }
     
 private:
     void addOutputNumber(int number);
     void createConveyorLine();
     int getNextIndex();
+    inline void resetIndex() { mPairIndex=0; }
+    void resetTime();
+    inline void resetOutputList() { mOutputList.clear(); }
     int getCurrentPairIndex(){ return mPairIndex; }
     ConveyorType mConveyorType;
     CConveyorLine *mConveyorLine;

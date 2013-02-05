@@ -15,13 +15,16 @@ public:
     virtual bool isFree() { return mInputSignals.isEmpty(); }
     virtual ~CDevice();
     virtual bool run();
+    virtual void resetDevice();
 
 protected:
+
     QMap<InputSignal, CBinNumber*> mInputSignals;
 
 
 protected:
     virtual void updateWidget() = 0;
+    virtual void clearWidget() = 0;
 
     
 signals:

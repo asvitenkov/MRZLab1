@@ -27,3 +27,10 @@ bool CDevice::run()
     mInputSignals.clear();
     return true;
 }
+
+
+
+void CDevice::resetDevice()
+{
+    mInputSignals.clear();
+}

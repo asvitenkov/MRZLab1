@@ -2,6 +2,7 @@
 #define MAINWINDOW_H
 
 #include <QMainWindow>
+#include <QTimer>
 
 namespace Ui {
 class MainWindow;
@@ -20,6 +21,7 @@ public:
 private:
     Ui::MainWindow *ui;
     CConveyor *mConveyor;
+    QTimer mTimer;
 
 
 
@@ -29,6 +31,11 @@ private slots:
     void nextTimeSlot();
     void addRandomPair();
     void timeChanged(int time);
+    void resetConveyor();
+    void changeConveyorType();
+    void startConveyor();
+    void stopConveyor();
+    void addNPairs();
 };
 
 #endif // MAINWINDOW_H

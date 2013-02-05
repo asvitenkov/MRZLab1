@@ -72,3 +72,15 @@ void CShiftSummDevice::updateWidget()
     }
 
 }
+
+void CShiftSummDevice::clearWidget()
+{
+    mWidget->clear();
+}
+
+
+void CShiftSummDevice::resetDevice()
+{
+    CDevice::resetDevice();
+    clearWidget();
+}

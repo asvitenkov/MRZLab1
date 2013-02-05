@@ -18,6 +18,7 @@ public:
     explicit CConveyorLine(QVector<CDevice*>& devices,QObject *parent = 0);
     void nextStep(int firstNumber, int secondNumber, int index);
     void nextStep();
+    void reset();
     bool isFree();
 
 private:

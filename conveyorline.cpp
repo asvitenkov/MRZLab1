@@ -40,7 +40,7 @@ void CConveyorLine::nextStep(int firstNumber, int secondNumber, int index)
     mDevices.first()->input(IS_FIRST_NUMBER, new CBinNumber(firstNumber));
     mDevices.first()->input(IS_SECOND_NUMBER, new CBinNumber(secondNumber));
     mDevices.first()->input(IS_PREVIOUS_SUMM, new CBinNumber(0,NUMBER_CAPACITY*2));
-    mDevices.first()->input(IS_NUMBER_INDEX, new CBinNumber(index));
+    mDevices.first()->input(IS_NUMBER_INDEX, new CBinNumber(index,15));
 
 }
 
@@ -59,4 +59,12 @@ bool CConveyorLine::isFree()
         if(!mDevices.at(i)->isFree())
             return false;
     return true;
+}
+
+void CConveyorLine::reset()
+{
+    for(int i=0; i<mDevices.size(); ++i)
+    {
+        mDevices.at(i)->resetDevice();
+    }
 }

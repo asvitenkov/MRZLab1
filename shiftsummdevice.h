@@ -13,10 +13,12 @@ public:
     explicit CShiftSummDevice(ShiftDirection direction,int shiftValue, int devicePos,CShiftSummDeviceWidget* widget,QObject *parent = 0);
     virtual ~CShiftSummDevice();
     bool run();
+    void resetDevice();
 
 
 private:
     void updateWidget();
+    void clearWidget();
 
     ShiftDirection mShiftDirection;
     int mShiftValue;
