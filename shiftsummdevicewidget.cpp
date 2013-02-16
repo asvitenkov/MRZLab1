@@ -44,4 +44,20 @@ void CShiftSummDeviceWidget::clear()
     ui->indexEdit->clear();
     ui->summEdit->clear();
     ui->multiplicandEdit->clear();
+    ui->firstNumberEdit->clear();
+    ui->secondNumberEdit->clear();
+}
+
+
+
+void CShiftSummDeviceWidget::setFirsrNumber(CBinNumber *number)
+{
+    ui->firstNumberEdit->setText(QString::number(number->value()));
+}
+
+
+
+void CShiftSummDeviceWidget::setSecondNumber(CBinNumber *number)
+{
+    ui->secondNumberEdit->setText(QString::number(number->value()));
 }

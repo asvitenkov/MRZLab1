@@ -23,6 +23,8 @@ public slots:
     void setSummNumber(CBinNumber* number);
     void setMultiplicand(CBinNumber* number);
     void setNumberIndex(CBinNumber* number);
+    void setFirsrNumber(CBinNumber* number);
+    void setSecondNumber(CBinNumber* number);
 
 private:
     int mCapacity;

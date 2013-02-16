@@ -55,6 +55,7 @@ MainWindow::~MainWindow()
 
 void MainWindow::nextTimeSlot()
 {
+    ui->lstInputNumbers->takeItem(0);
     if(!mConveyor->nextTime())
     {
         stopConveyor();

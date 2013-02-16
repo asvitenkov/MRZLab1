@@ -57,6 +57,8 @@ void CShiftSummDevice::updateWidget()
         CBinNumber *pSecondNumber, *pFirstNumber;
         pFirstNumber = mInputSignals.value(IS_FIRST_NUMBER);
         pSecondNumber = mInputSignals.value(IS_SECOND_NUMBER);
+        mWidget->setFirsrNumber(pFirstNumber);
+        mWidget->setSecondNumber(pSecondNumber);
         if( (1<<(DEVICE_COUNT-mDevicePosition)) & pSecondNumber->value() )
             mWidget->setMultiplicand(pFirstNumber);
         else
